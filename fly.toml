@@ -1,17 +1,23 @@
-app = "deepdata"  # Replace with your preferred app name
+# fly.toml app configuration file generated for deepdata on 2025-01-30T13:39:41Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'deepdata'
+primary_region = 'cdg'
 
 [build]
-  [build.args]
-    build_phase = "true"
 
 [http_service]
   internal_port = 80
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  
-  [[http_service.checks]]
-    interval = "10s"
-    timeout = "2s"
-    path = "/"
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 1024

@@ -1,1 +1,48 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Mobile View</title>
+    <style>
+        /* Basic styling for the iframe */
+        #mobile-view {
+            width: 375px; /* iPhone X width */
+            height: 667px; /* iPhone X height */
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            display: block;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="mobile-view" src="https://dzvibes.shop/products/caf"></iframe>
+
+    <script>
+        // Function to simulate mobile user agent
+        function setMobileUserAgent() {
+            const iframe = document.getElementById('mobile-view');
+            const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1';
+            
+            // Access the contentWindow of the iframe
+            if (iframe.contentWindow && iframe.contentWindow.navigator) {
+                Object.defineProperty(iframe.contentWindow.navigator, 'userAgent', {
+                    value: userAgent,
+                    writable: true
+                });
+            }
+
+            // Reload the iframe to apply the new user agent
+            iframe.src = iframe.src;
+        }
+
+        // Call the function after the iframe has loaded
+        window.onload = function() {
+            setTimeout(setMobileUserAgent, 1000); // Delay to ensure the iframe has fully loaded
+        };
+    </script>
+</body>
+</html>
